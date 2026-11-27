@@ -121,5 +121,8 @@ def run_tool():
         print(f"Region      : {region}")
         print(f"Population  : {population:,}")
         print(f"Currency    : {currencies}")
+    else:
+        print("\n=== Country Info ===")
+        print("Country details are unavailable right now.")
 
 run_tool()

@@ -1,3 +1,21 @@
+"""Travel Weather Tool.
+
+Shows live weather and key country facts for any city you type in.
+Saves the results to a JSON file.
+
+Requirements:
+    - Packages: requests, python-dotenv
+    - Free API keys from OpenWeather and RestCountries
+
+Usage:
+    1. Install the packages: pip install requests python-dotenv
+    2. Create a .env file in the same folder with:
+           OPENWEATHER_API_KEY=your_key_here
+           RESTCOUNTRIES_API_KEY=your_key_here
+    3. Run: python travel_weather.py
+    4. Type a city name when asked
+"""
+
 import requests
 import os
 from dotenv import load_dotenv

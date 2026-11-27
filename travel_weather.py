@@ -59,6 +59,14 @@ def get_country_info(country_code):
 def run_tool():
     print("Travel Weather Tool")
     print("-------------------")
+
+    if not api_key or not countries_api_key:
+        print("\nAPI keys are missing.")
+        print("Create a .env file in this folder with these two lines:")
+        print("    OPENWEATHER_API_KEY=your_key_here")
+        print("    RESTCOUNTRIES_API_KEY=your_key_here")
+        return
+
     city = input("Enter a city name: ").strip()
 
     if not city:

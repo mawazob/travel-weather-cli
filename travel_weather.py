@@ -69,17 +69,17 @@ def run_tool():
 
     weather_data = get_weather(city)
 
-    # Use the if only if you want to save the weather data.
-
-    if weather_data:
-        save_to_file(weather_data, f"{city.lower().replace(' ', '_')}_weather.json")
-
     if not weather_data:
         print(f"Could not find weather data for '{city}'. Check the city name and try again.")
         return
 
     country_code = weather_data["sys"]["country"]
     country_data = get_country_info(country_code)
+    
+        # Save both results together in one file
+    combined = {"city": city, "weather": weather_data, "country": country_data}
+    filename = f"{city.lower().replace(' ', '_')}_travel_info.json"
+    save_to_file(combined, filename)
 
     print(f"\n=== {city.title()}, {country_code} ===")
     print(f"Temperature : {weather_data['main']['temp']}°C")

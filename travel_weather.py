@@ -67,15 +67,31 @@ def run_tool():
 
     print(f"\nFetching data for {city}...")
 
-    weather_data = get_weather(city)
+    try:
+        weather_data = get_weather(city)
+    except requests.exceptions.ConnectionError:
+        print("\nNetwork problem: could not reach the weather service.")
+        print("Please check that you are connected to the internet, then try again.")
+        return
+    except requests.exceptions.Timeout:
+        print("\nThe weather service took too long to respond.")
+        print("Your connection may be slow. Please try again in a moment.")
+        return
+    except requests.exceptions.RequestException:
+        print("\nSomething went wrong while getting the weather.")
+        print("Please try again. If it keeps happening, the service may be down.")
+        return
 
     if not weather_data:
         print(f"Could not find weather data for '{city}'. Check the city name and try again.")
         return
 
     country_code = weather_data["sys"]["country"]
-    country_data = get_country_info(country_code)
-    
+    try:
+        country_data = get_country_info(country_code)
+    except requests.exceptions.RequestException:
+        country_data = None
+
         # Save both results together in one file
     combined = {"city": city, "weather": weather_data, "country": country_data}
     filename = f"{city.lower().replace(' ', '_')}_travel_info.json"
